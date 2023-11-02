@@ -1,16 +1,55 @@
 <template>
-    <section class="add-todo">
-      <button class="add-todo__show-form-button">
-        <i class="bi bi-plus-lg"></i>
+  <section class="add-todo">
+
+    <form class="add-todo__form" v-if="isFormVisible" @submit.prevent="addTodo">
+      <button class="close-button" type="button" @click="toggleVisible">
+        <i class="bi bi-x"></i>
       </button>
-      <form class="add-todo__form">
-        <button class="close-button" type="button">
-          <i class="bi bi-x"></i>
-        </button>
-        <div class="text-input text-input--focus">
-          <input class="input" />
-        </div>
-        <button class="button button--filled">Add task</button>
-      </form>
-    </section>
+      <div class="text-input text-input--focus">
+        <input v-model="todoText" class="input" />
+      </div>
+      <button class="button button--filled">Add task</button>
+    </form>
+    <button v-else class="add-todo__show-form-button" @click="toggleVisible">
+      <i class="bi bi-plus-lg"></i>
+    </button>
+  </section>
 </template>
+<script lang="ts">
+import { Todo } from '@/models/Todo';
+import { defineComponent } from 'vue';
+//import { Todo } from '@/models/Todo';
+
+interface State {
+  isFormVisible: boolean;
+  todoText: string
+}
+
+export default defineComponent({
+  data(): State {
+    return {
+      isFormVisible: false,
+      todoText: ''
+    }
+  },
+  methods: {
+    toggleVisible() {
+      this.todoText = '';
+      this.isFormVisible = !this.isFormVisible;
+    },
+    addTodo() {
+      if (this.todoText) {
+        this.$emit("addTodo", {
+          id: Date.now(),
+          text: this.todoText,
+          completed: false
+        });
+        this.todoText = '';
+      }
+    }
+  },
+  emits: {
+    addTodo: (todo: Todo) => todo
+  }
+})
+</script>

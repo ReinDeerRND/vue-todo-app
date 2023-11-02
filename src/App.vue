@@ -1,7 +1,6 @@
 <template>
-  <header class="app-header">
-    <span class="logo">TODOS</span>
-  </header>
+  <AppHeader />
+
 
   <aside class="app-filters">
     <section class="toggle-group">
@@ -60,3 +59,24 @@
 
   <footer class="app-footer">2 more to do, 1 done</footer>
 </template>
+
+<script>
+// import HelloWorld from './components/HelloWorld.vue';
+import AppHeader from './components/AppHeader.vue'
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  components: { AppHeader }
+})
+</script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

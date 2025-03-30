@@ -29,7 +29,6 @@ export default defineComponent({
             this.$emit('deleteTodo', this.todo.id);
         }
     },
-    // emits:["toggleTodoComplete"]
     emits: {
         toggleTodoComplete: (id: number) => Number.isInteger(id),//true //fn валидации, но она помогает типизировать emit
         deleteTodo: (id: number) => Number.isInteger(id)
